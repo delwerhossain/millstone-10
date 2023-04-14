@@ -11,6 +11,7 @@ import About from "./Components/About/About";
 import Courses from "./Components/Courses/Courses";
 import Blogs from "./Components/Blogs/Blogs";
 import Auth from "./Components/Auth/Auth";
+import Register from "./Components/Register/Register";
 
 const router = createBrowserRouter([
   {
@@ -37,10 +38,15 @@ const router = createBrowserRouter([
       {
         path: "blogs",
         element: <Blogs />,
-      },  {
+      },
+      {
         path: "auth",
         element: <Auth />,
-      }
+      },
+      {
+        path: "register",
+        element: <Register />,
+      },
     ],
   },
 ]);
