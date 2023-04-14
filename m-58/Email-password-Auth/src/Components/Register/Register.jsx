@@ -1,4 +1,15 @@
 import React from "react";
+import {
+  GithubAuthProvider,
+  GoogleAuthProvider,
+  createUserWithEmailAndPassword,
+  getAuth,
+  signInWithPopup,
+} from "firebase/auth";
+import app from "../../firebase/firebase.init";
+
+const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
 
 const Register = () => {
   const handlerMailChange = (event) => {
@@ -7,12 +18,66 @@ const Register = () => {
   const handlerPassBlur = (event) => {
     // console.log(event.target.value);
   };
-    const handlerSubmit = (event) => {
-      event.preventDefault()
-    const name =event.target.name.value;
-    const email =event.target.email.value;
-        const pass = event.target.password.value;
-        console.log(name , email , pass);
+  const handlerSubmit = (event) => {
+    event.preventDefault();
+    const name = event.target.name.value;
+    const email = event.target.email.value;
+    const pass = event.target.password.value;
+    createUserWithEmailAndPassword(auth, email, pass)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // ..
+      });
+  };
+  const handleGoogle = () => {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        // The signed-in user info.
+        const user = result.user;
+        // IdP data available using getAdditionalUserInfo(result)
+        // ...
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.customData.email;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
+      });
+  };
+
+  const handleGit = () => {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        // This gives you a GitHub Access Token. You can use it to access the GitHub API.
+        const credential = GithubAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+
+        // The signed-in user info.
+        const user = result.user;
+        // IdP data available using getAdditionalUserInfo(result)
+        // ...
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The AuthCredential type that was used.
+        const credential = GithubAuthProvider.credentialFromError(error);
+        // ...
+      });
   };
   return (
     <div className="flex flex-col items-center min-h-screen pt-6 sm:justify-center sm:pt-0 bg-gray-50">
@@ -23,7 +88,7 @@ const Register = () => {
       </div>
       <div className="w-full px-6 py-4 mt-6 overflow-hidden bg-white shadow-md sm:max-w-lg sm:rounded-lg">
         <form onSubmit={handlerSubmit}>
-          <div>
+          {/* <div>
             <label
               htmlFor="name"
               className="block text-sm font-medium text-gray-700 undefined"
@@ -34,10 +99,10 @@ const Register = () => {
               <input
                 type="text"
                 name="name"
-                className="block w-full  mt-1 border h-10 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                className="block w-full  mt-1 border h-10 px-3 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
               />
             </div>
-          </div>
+          </div> */}
           <div className="mt-4">
             <label
               htmlFor="email"
@@ -50,7 +115,7 @@ const Register = () => {
                 onChange={handlerMailChange}
                 type="email"
                 name="email"
-                className="block w-full mt-1 border h-10 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                className=" block w-full mt-1 border h-10 px-3 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
               />
             </div>
           </div>
@@ -62,15 +127,15 @@ const Register = () => {
               Password
             </label>
             <div className="flex flex-col items-start">
-                          <input 
-                              onBlur={handlerPassBlur}
+              <input
+                onBlur={handlerPassBlur}
                 type="password"
                 name="password"
-                className="block w-full mt-1 border h-10 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                className="block w-full mt-1 border h-10 px-3 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
               />
             </div>
           </div>
-          <div className="mt-4">
+          {/* <div className="mt-4">
             <label
               htmlFor="password_confirmation"
               className="block text-sm font-medium text-gray-700 undefined"
@@ -81,10 +146,10 @@ const Register = () => {
               <input
                 type="password"
                 name="password_confirmation"
-                className="block w-full mt-1 border h-10 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                className="block w-full mt-1 border h-10 px-3 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
               />
             </div>
-          </div>
+          </div> */}
           <a href="#" className="text-xs text-purple-600 hover:underline">
             Forget Password?
           </a>
@@ -109,9 +174,10 @@ const Register = () => {
         </div>
         <div className="my-6 space-y-2">
           <button
+            onClick={handleGoogle}
             aria-label="Login with Google"
             type="button"
-            className="flex items-center justify-center w-full p-2 space-x-4 border h-10 rounded-md focus:ring-2 focus:ring-offset-1 dark:border-gray-400 focus:ring-violet-400"
+            className="flex items-center justify-center w-full p-2 space-x-4 border h-10 px-3 rounded-md focus:ring-2 focus:ring-offset-1 dark:border-gray-400 focus:ring-violet-400"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -123,9 +189,10 @@ const Register = () => {
             <p>Login with Google</p>
           </button>
           <button
+            onClick={handleGit}
             aria-label="Login with GitHub"
             role="button"
-            className="flex items-center justify-center w-full p-4 space-x-4 border h-10 rounded-md focus:ring-2 focus:ring-offset-1 dark:border-gray-400 focus:ring-violet-400"
+            className="flex items-center justify-center w-full p-4 space-x-4 border h-10 px-3 rounded-md focus:ring-2 focus:ring-offset-1 dark:border-gray-400 focus:ring-violet-400"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
