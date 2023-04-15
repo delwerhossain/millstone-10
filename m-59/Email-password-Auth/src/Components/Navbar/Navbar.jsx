@@ -49,7 +49,8 @@ const Navbar = () => {
                   </li> */}
                 </ul>
               </div>
-              <Link to={'/'} className="btn btn-ghost normal-case text-xl">Simple Firebase project </Link>
+              <div className='text-center '><Link to={'/'} className="btn btn-ghost normal-case text-xl hidden md:inline">Email Password Authentication </Link>
+              <Link to={'/'} className="btn btn-ghost normal-case text-xl inline md:hidden">E P A</Link></div>
             </div>
             <div className="navbar-center hidden lg:flex">
               <ul className="menu menu-horizontal px-1">

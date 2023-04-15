@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   GithubAuthProvider,
   GoogleAuthProvider,
@@ -7,83 +7,122 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import app from "../../firebase/firebase.init";
+import { Link } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
 const Register = () => {
-  const handlerMailChange = (event) => {
-    // console.log(event.target.value);
-  };
-  const handlerPassBlur = (event) => {
-    // console.log(event.target.value);
-  };
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+
   const handlerSubmit = (event) => {
+    
+    setSuccess("");
     event.preventDefault();
     const name = event.target.name.value;
     const email = event.target.email.value;
     const pass = event.target.password.value;
     createUserWithEmailAndPassword(auth, email, pass)
       .then((userCredential) => {
-        // Signed in
         const user = userCredential.user;
-        // ...
+        setSuccess("Successfully registered");
+        setError("");
+        toast.success("🦄 Successfully registered ", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        event.target.reset();
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        // ..
+        setError(errorCode);
+        toast.error(`🦄 ${errorCode} `, {
+          position: "top-right",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
       });
   };
+
   const handleGoogle = () => {
+    
+    setSuccess("");
     signInWithPopup(auth, provider)
       .then((result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
-        // The signed-in user info.
         const user = result.user;
-        // IdP data available using getAdditionalUserInfo(result)
-        // ...
+        setError("");
+        setSuccess("Successfully registered");
+        toast.success("🦄 Successfully registered ", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
       })
       .catch((error) => {
-        // Handle Errors here.
         const errorCode = error.code;
         const errorMessage = error.message;
-        // The email of the user's account used.
+        setError(errorCode);
         const email = error.customData.email;
-        // The AuthCredential type that was used.
         const credential = GoogleAuthProvider.credentialFromError(error);
-        // ...
       });
   };
 
   const handleGit = () => {
+    
+    setSuccess("");
     signInWithPopup(auth, provider)
       .then((result) => {
-        // This gives you a GitHub Access Token. You can use it to access the GitHub API.
         const credential = GithubAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
-
-        // The signed-in user info.
         const user = result.user;
-        // IdP data available using getAdditionalUserInfo(result)
-        // ...
+        setError("");
+        setSuccess("Successfully registered");
+        toast.success("🦄 Successfully registered ", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
       })
       .catch((error) => {
-        // Handle Errors here.
         const errorCode = error.code;
         const errorMessage = error.message;
-        // The AuthCredential type that was used.
+        setError(errorMessage);
         const credential = GithubAuthProvider.credentialFromError(error);
-        // ...
       });
   };
+
   return (
     <div className="flex flex-col items-center min-h-screen pt-6 sm:justify-center sm:pt-0 bg-gray-50">
       <div>
         <a href="/">
-          <h3 className="text-4xl font-bold text-purple-600">Logo</h3>
+          <h3 className="text-4xl font-bold text-purple-600">Register</h3>
         </a>
       </div>
       <div className="w-full px-6 py-4 mt-6 overflow-hidden bg-white shadow-md sm:max-w-lg sm:rounded-lg">
@@ -112,7 +151,6 @@ const Register = () => {
             </label>
             <div className="flex flex-col items-start">
               <input
-                onChange={handlerMailChange}
                 type="email"
                 name="email"
                 className=" block w-full mt-1 border h-10 px-3 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
@@ -128,7 +166,6 @@ const Register = () => {
             </label>
             <div className="flex flex-col items-start">
               <input
-                onBlur={handlerPassBlur}
                 type="password"
                 name="password"
                 className="block w-full mt-1 border h-10 px-3 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
@@ -159,12 +196,18 @@ const Register = () => {
             </button>
           </div>
         </form>
+        <p className="text-xl text-red-600 ">{error}</p>
+        <p className="text-xl text-green-600 ">{success}</p>
         <div className="mt-4 text-grey-600">
           Already have an account?{" "}
           <span>
-            <a className="text-purple-600 hover:underline" href="#">
+            <Link
+              to={"/auth"}
+              className="text-purple-600 hover:underline"
+              href="#"
+            >
               Log in
-            </a>
+            </Link>
           </span>
         </div>
         <div className="flex items-center w-full my-4">
@@ -205,6 +248,20 @@ const Register = () => {
           </button>
         </div>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      {/* Same as */}
+      <ToastContainer />
     </div>
   );
 };
