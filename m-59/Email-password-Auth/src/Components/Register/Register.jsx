@@ -113,7 +113,7 @@ const Register = () => {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        setError(errorMessage);
+        setError(errorCode);
         const credential = GithubAuthProvider.credentialFromError(error);
       });
   };

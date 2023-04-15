@@ -36,10 +36,19 @@ const Auth = () => {
       });
   };
 
-  console.log("user - ", user);
+  const handleSignOut = () => {
+    const auth = getAuth();
+    signOut(auth)
+      .then(() => {
+        // Sign-out successful.
+      })
+      .catch((error) => {
+        // An error happened.
+      });
+  };
   return (
     <div>
-      <div className="relative flex flex-col justify-center min-h-screen overflow-hidden">
+     {user ?  <div className="relative flex flex-col justify-center min-h-screen overflow-hidden">
         <div className="w-full p-6 m-auto bg-white rounded-md shadow-xl lg:max-w-xl">
           <h1 className="text-3xl font-semibold text-center text-purple-700 uppercase">
             Sign in
@@ -121,12 +130,17 @@ const Auth = () => {
           <p className="mt-8 text-xs font-light text-center text-gray-700">
             {" "}
             Don't have an account?{" "}
-            <Link to={'/register'} href="#" className="font-medium text-purple-600 hover:underline">
+            <Link
+              to={"/register"}
+              href="#"
+              className="font-medium text-purple-600 hover:underline"
+            >
               Sign up
             </Link>
           </p>
         </div>
       </div>
+        : <div> <button onClick={handleSignOut} className="btn" >sign Out </button> </div>}
     </div>
   );
 };
