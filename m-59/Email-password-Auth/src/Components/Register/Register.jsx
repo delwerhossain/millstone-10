@@ -4,6 +4,7 @@ import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
   getAuth,
+  sendEmailVerification,
   signInWithPopup,
 } from "firebase/auth";
 import app from "../../firebase/firebase.init";
@@ -25,9 +26,19 @@ const Register = () => {
     const name = event.target.name.value;
     const email = event.target.email.value;
     const pass = event.target.password.value;
+    // var strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+    if (!/(?=.*[a-z])(?=.*[A-Z])/.test(pass)) {
+      setError('must use uppercase and lower alphabetical character')
+      return
+    }
+    else if (!/(?=.*[0-9])/.test(pass)) {
+      setError('must use numbers')
+      return
+      
+    }
     createUserWithEmailAndPassword(auth, email, pass)
       .then((userCredential) => {
-        const user = userCredential.user;
+        const logUser = userCredential.user;
         setSuccess("Successfully registered");
         setError("");
         toast.success("🦄 Successfully registered ", {
@@ -41,6 +52,7 @@ const Register = () => {
           theme: "light",
         });
         event.target.reset();
+        mailVerification(logUser) 
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -71,7 +83,7 @@ const Register = () => {
         setSuccess("Successfully registered");
         toast.success("🦄 Successfully registered ", {
           position: "top-right",
-          autoClose: 5000,
+          autoClose: 1000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -101,7 +113,7 @@ const Register = () => {
         setSuccess("Successfully registered");
         toast.success("🦄 Successfully registered ", {
           position: "top-right",
-          autoClose: 5000,
+          autoClose: 1000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -117,6 +129,29 @@ const Register = () => {
         const credential = GithubAuthProvider.credentialFromError(error);
       });
   };
+
+    // verify case
+    const mailVerification = (currentUser) => {
+      sendEmailVerification(currentUser)
+      .then(() => {
+        setSuccess("check mail confirmation");
+        toast.success("check mail confirmation ", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        setError("");
+      })
+      .catch((error) => {
+        // An error happened.
+        setError(error.code);
+      });
+    };
 
   return (
     <div className="flex flex-col items-center min-h-screen pt-6 sm:justify-center sm:pt-0 bg-gray-50">
@@ -135,7 +170,7 @@ const Register = () => {
               Name
             </label>
             <div className="flex flex-col items-start">
-              <input
+              <input required
                 type="text"
                 name="name"
                 className="block w-full  mt-1 border h-10 px-3 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
@@ -150,10 +185,10 @@ const Register = () => {
               Email
             </label>
             <div className="flex flex-col items-start">
-              <input
+              <input required
                 type="email"
                 name="email"
-                className=" block w-full mt-1 border h-10 px-3 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                className=" block w-full mt-1 border h-10 px-3 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" 
               />
             </div>
           </div>
@@ -165,7 +200,7 @@ const Register = () => {
               Password
             </label>
             <div className="flex flex-col items-start">
-              <input
+              <input required
                 type="password"
                 name="password"
                 className="block w-full mt-1 border h-10 px-3 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
@@ -180,7 +215,7 @@ const Register = () => {
               Confirm Password
             </label>
             <div className="flex flex-col items-start">
-              <input
+              <input required
                 type="password"
                 name="password_confirmation"
                 className="block w-full mt-1 border h-10 px-3 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
@@ -250,7 +285,7 @@ const Register = () => {
       </div>
       <ToastContainer
         position="top-right"
-        autoClose={5000}
+        autoClose={1000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
