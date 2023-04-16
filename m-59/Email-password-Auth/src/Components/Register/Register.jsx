@@ -10,7 +10,7 @@ import {
 import app from "../../firebase/firebase.init";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
@@ -20,7 +20,6 @@ const Register = () => {
   const [success, setSuccess] = useState("");
 
   const handlerSubmit = (event) => {
-    
     setSuccess("");
     event.preventDefault();
     const name = event.target.name.value;
@@ -28,13 +27,11 @@ const Register = () => {
     const pass = event.target.password.value;
     // var strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
     if (!/(?=.*[a-z])(?=.*[A-Z])/.test(pass)) {
-      setError('must use uppercase and lower alphabetical character')
-      return
-    }
-    else if (!/(?=.*[0-9])/.test(pass)) {
-      setError('must use numbers')
-      return
-      
+      setError("must use uppercase and lower alphabetical character");
+      return;
+    } else if (!/(?=.*[0-9])/.test(pass)) {
+      setError("must use numbers");
+      return;
     }
     createUserWithEmailAndPassword(auth, email, pass)
       .then((userCredential) => {
@@ -52,7 +49,8 @@ const Register = () => {
           theme: "light",
         });
         event.target.reset();
-        mailVerification(logUser) 
+        mailVerification(logUser);
+        userName(logUser, name);
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -67,12 +65,11 @@ const Register = () => {
           draggable: true,
           progress: undefined,
           theme: "light",
-          });
+        });
       });
   };
 
   const handleGoogle = () => {
-    
     setSuccess("");
     signInWithPopup(auth, provider)
       .then((result) => {
@@ -102,7 +99,6 @@ const Register = () => {
   };
 
   const handleGit = () => {
-    
     setSuccess("");
     signInWithPopup(auth, provider)
       .then((result) => {
@@ -130,9 +126,9 @@ const Register = () => {
       });
   };
 
-    // verify case
-    const mailVerification = (currentUser) => {
-      sendEmailVerification(currentUser)
+  // verify case
+  const mailVerification = (currentUser) => {
+    sendEmailVerification(currentUser)
       .then(() => {
         setSuccess("check mail confirmation");
         toast.success("check mail confirmation ", {
@@ -151,8 +147,22 @@ const Register = () => {
         // An error happened.
         setError(error.code);
       });
-    };
+  };
 
+  const userName = (user, name) => {
+    updateProfile(user, {
+      displayName: name,
+    })
+      .then(() => {
+        // Profile updated!
+        // ...
+      })
+      .catch((error) => {
+        setError(error.code);
+        // An error occurred
+        // ...
+      });
+  };
   return (
     <div className="flex flex-col items-center min-h-screen pt-6 sm:justify-center sm:pt-0 bg-gray-50">
       <div>
@@ -162,7 +172,7 @@ const Register = () => {
       </div>
       <div className="w-full px-6 py-4 mt-6 overflow-hidden bg-white shadow-md sm:max-w-lg sm:rounded-lg">
         <form onSubmit={handlerSubmit}>
-          {/* <div>
+          <div>
             <label
               htmlFor="name"
               className="block text-sm font-medium text-gray-700 undefined"
@@ -170,13 +180,14 @@ const Register = () => {
               Name
             </label>
             <div className="flex flex-col items-start">
-              <input required
+              <input
+                required
                 type="text"
                 name="name"
                 className="block w-full  mt-1 border h-10 px-3 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
               />
             </div>
-          </div> */}
+          </div>
           <div className="mt-4">
             <label
               htmlFor="email"
@@ -185,10 +196,11 @@ const Register = () => {
               Email
             </label>
             <div className="flex flex-col items-start">
-              <input required
+              <input
+                required
                 type="email"
                 name="email"
-                className=" block w-full mt-1 border h-10 px-3 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" 
+                className=" block w-full mt-1 border h-10 px-3 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
               />
             </div>
           </div>
@@ -200,7 +212,8 @@ const Register = () => {
               Password
             </label>
             <div className="flex flex-col items-start">
-              <input required
+              <input
+                required
                 type="password"
                 name="password"
                 className="block w-full mt-1 border h-10 px-3 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
