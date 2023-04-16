@@ -6,6 +6,7 @@ import {
   getAuth,
   sendEmailVerification,
   signInWithPopup,
+  updateProfile,
 } from "firebase/auth";
 import app from "../../firebase/firebase.init";
 import { Link } from "react-router-dom";
