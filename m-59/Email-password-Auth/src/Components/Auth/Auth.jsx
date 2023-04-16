@@ -1,24 +1,31 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   GithubAuthProvider,
   GoogleAuthProvider,
   getAuth,
-  sendEmailVerification,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
 } from "firebase/auth";
 import app from "../../firebase/firebase.init";
 import { Link } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+// global variables
 const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
 const gitProvider = new GithubAuthProvider();
 
+// components
 const Auth = () => {
+  const emailRef = useRef();
   const [user, setUser] = useState(null);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-
+  const [hide, setHide] = useState(false);
+  
   const handleGoogleSignIn = () => {
     setSuccess("");
     signInWithPopup(auth, googleProvider)
@@ -83,7 +90,6 @@ const Auth = () => {
         setUser(null);
         setSuccess("Successfully log out");
         setError("");
-        
       })
       .catch((error) => {
         // An error happened.
@@ -91,6 +97,45 @@ const Auth = () => {
       });
   };
 
+  // password reset
+  const passwordReset = () => {
+    const email = emailRef.current.value;
+    if (!email) {
+      toast.error("please add email", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      setError("email flied is empty");
+      return;
+    }
+    sendPasswordResetEmail(auth, email)
+      .then(() => {
+        setSuccess("reset password sent mail");
+        toast.success("reset password sent mail ", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        setError("");
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        setError(errorCode);
+        // ..
+      });
+  };
   return (
     <div>
       {user ? (
@@ -125,6 +170,8 @@ const Auth = () => {
                   Email
                 </label>
                 <input
+                  ref={emailRef}
+                  id="email"
                   name="email"
                   required
                   type="email"
@@ -140,12 +187,17 @@ const Auth = () => {
                 </label>
                 <input
                   required
-                  type="password"
+                  type={hide ? 'name' : 'password'}
                   name="password"
                   className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
-                />
+                  />
+                  <a className="font-medium text-blue-600 hover:underline" onClick={()=>setHide(!hide)} > show password</a>
               </div>
-              <a href="#" className="text-xs text-purple-600 hover:underline">
+              <a
+                onClick={passwordReset}
+                href="#"
+                className="text-xs text-purple-600 hover:underline"
+              >
                 Forget Password?
               </a>
               <div className="mt-6">
@@ -210,8 +262,22 @@ const Auth = () => {
           </div>
         </div>
       )}
+      <ToastContainer
+        position="top-right"
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      {/* Same as */}
+      <ToastContainer />
     </div>
   );
-};
+}
 
 export default Auth;
