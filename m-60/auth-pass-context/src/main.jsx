@@ -13,6 +13,7 @@ import Blogs from "./Components/Blogs/Blogs";
 import Login from "./Components/Login/Login";
 import Register from "./Components/Register/Register";
 import AuthProviders from "./providers/authproviders";
+import PrivateRoute from "./route/PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -30,15 +31,15 @@ const router = createBrowserRouter([
       },
       {
         path: "about",
-        element: <About />,
+        element: <PrivateRoute><About /> </PrivateRoute>,
       },
       {
         path: "courses",
-        element: <Courses />,
+        element: <PrivateRoute><Courses /></PrivateRoute>,
       },
       {
         path: "blogs",
-        element: <Blogs />,
+        element: <PrivateRoute><Blogs /></PrivateRoute>,
       },
       {
         path: "login",
