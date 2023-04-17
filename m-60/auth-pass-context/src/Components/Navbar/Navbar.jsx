@@ -64,8 +64,8 @@ const Navbar = () => {
         </div>
         <Link className="btn btn-ghost normal-case text-xl">
           {user ? (
-            <div className="flex">
-              <img className="w-6 rounded-full" src={user.photoURL} alt="" />{" "}
+            <div className="flex justify-center items-center gap-1">
+              <img className="w-10 h-10 rounded-full" src={user.photoURL} alt="" />{" "}
               {user.displayName}
             </div>
           ) : (
