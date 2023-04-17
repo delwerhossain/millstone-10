@@ -1,37 +1,43 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import app from "../../firebase/firebase.init";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../providers/authproviders";
 
 // auth
 const auth = getAuth(app);
 
 const Login = () => {
   //state part
-  const [error , setError] = useState('')
-  const [success , setSuccess] = useState('')
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const [userData, setUserData] = useState("");
-  
+
+  // maintain authentication
+  const { signIn } = useContext(AuthContext);
+
   //login part
   const handleLogin = (e) => {
     e.preventDefault();
-    setSuccess('')
     const name = e.target.name.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
-    signInWithEmailAndPassword(auth, email, password)
+    signIn(email, password)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        setUserData(user)
-        setError('')
-        setSuccess('successfully signed in')
+        console.log(user);
+        setUserData(user);
+        setSuccess("successfully signed in");
+        setError("");
+        form.reset();
         // ...
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        setError(errorCode)
+        setError(errorCode);
+        setSuccess("");
       });
   };
   return (
@@ -81,11 +87,14 @@ const Login = () => {
             </div>
             <p className="text-red-500 font-semibold">{error}</p>
             <p className="text-green-500 font-semibold">{success}</p>
-          <label className="label">
-            <Link to={"/register"} className=" label-text-alt link link-hover">
-              Sign Up for new account
-            </Link>
-          </label>
+            <label className="label">
+              <Link
+                to={"/register"}
+                className=" label-text-alt link link-hover"
+              >
+                Sign Up for new account
+              </Link>
+            </label>
           </form>
         </div>
       </div>

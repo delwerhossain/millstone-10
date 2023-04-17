@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   getAuth,
@@ -6,37 +6,43 @@ import {
   updateProfile,
 } from "firebase/auth";
 import app from "../../firebase/firebase.init";
+import { AuthContext } from "../../providers/authproviders";
 
 //authentication
 const auth = getAuth(app);
 
 const Register = () => {
-  //state part
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
-  const [userData, setUserData] = useState("");
+    //state part
+    const [error, setError] = useState("");
+    const [success, setSuccess] = useState("");
+    const [userData, setUserData] = useState("");
 
-  // register part
-  const handleRegister = (e) => {
+    // maintain authentication
+    const { signUp } = useContext(AuthContext);
+    
+    // register part
+    const handleRegister = (e) => {
     e.preventDefault();
     const name = e.target.name.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
 
-    createUserWithEmailAndPassword(auth, email, password)
+    signUp(email, password)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
+        console.log(user);
+        userUpdated(name);
         setUserData(user);
         setSuccess("successfully signed up");
-          setError('');
-          e.reset()
+        setError("");
+        form.reset();
         // ...
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-          setError(errorCode);
+        setError(errorCode);
         setSuccess("");
         // ..
       });
