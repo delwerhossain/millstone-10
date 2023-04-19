@@ -1,4 +1,4 @@
-import React, { createContext } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import app from "../firebase/firebase.init";
 import {
   getAuth,
@@ -8,39 +8,66 @@ import {
   GithubAuthProvider,
   signOut,
   signInWithPopup,
+  onAuthStateChanged,
 } from "firebase/auth";
 
-export const AuthContext = createContext(null);
+export const AuthContext = createContext(true);
 const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
 const gitProvider = new GithubAuthProvider();
 
 const AuthProvider = ({ children }) => {
-  const createUser = (email, password, name) => {
-    createUserWithEmailAndPassword(auth, email, password);
+  const [user, setUser] = useState(null);
+  const [loader, setLoader] = useState(true);
+
+  // authentication
+  const createUser = (email, password) => {
+    return createUserWithEmailAndPassword(auth, email, password);
+  };
+  //use name for authentication registration
+  const userName = (name) => {
+    updateProfile(auth.currentUser, {
+      displayName: name,
+    });
   };
   const signInUser = (email, password) => {
-    signInWithEmailAndPassword(auth, email, password);
+    return signInWithEmailAndPassword(auth, email, password);
   };
+  // with popup authentication
   const signInPopGoogle = () => {
-    signInWithPopup(auth, googleProvider);
+    return signInWithPopup(auth, googleProvider);
   };
   const signInPopGit = () => {
-    signInWithPopup(auth, gitProvider);
+    return signInWithPopup(auth, gitProvider);
   };
+  // signOut
   const signOutUser = () => {
-    signOut(auth);
+    return signOut(auth);
   };
-  const user = { displayName: "delwer hossain" };
+
+  // hold user
+  useEffect(() => {
+    setLoader(true);
+    const auth = getAuth();
+    const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      setLoader(false);
+    });
+    return () => {
+      return unSubscribe();
+    };
+  }, []);
+  // const user = { displayName: "delwer hossain" };
   const authInfo = {
     user,
+    loader,
     createUser,
+    userName,
     signInUser,
     signInPopGit,
     signInPopGoogle,
     signOutUser,
   };
-
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
   );

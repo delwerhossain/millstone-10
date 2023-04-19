@@ -1,14 +1,66 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../provider/AuthProvider";
 
 const SignUp = () => {
+  const { createUser, signInPopGit, signInPopGoogle } = useContext(AuthContext);
   // state
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [user, setUser] = useState("");
 
-  const handleRegister = () => {};
-  const handleGooglePopup = () => {};
-  const handleGitPopup = () => {};
+  const handleRegister = (e) => {
+    e.preventDefault();
+    const name = e.target.name.value;
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    const confirm = e.target.confirm.value;
+    if (password !== confirm) {
+      setError("confirm password not correct");
+      return;
+    }
+    createUser(email, password)
+      .then((result) => {
+        console.log(result);
+        setUser(result.user);
+        setError("");
+        setSuccess("successfully registered");
+        document.getElementById("form").reset();
+      })
+      .catch((error) => {
+        console.error(error);
+        setError(error.code);
+        setSuccess("");
+      });
+  };
+  const handleGooglePopup = () => {
+    signInPopGoogle()
+      .then((result) => {
+        console.log(result);
+        setUser(result.user);
+        setError("");
+        setSuccess("successfully registered with Google");
+      })
+      .catch((error) => {
+        console.error(error);
+        setError(error.code);
+        setSuccess("");
+      });
+  };
+  const handleGitPopup = () => {
+    signInPopGit()
+      .then((result) => {
+        console.log(result);
+        setUser(result.user);
+        setError("");
+        setSuccess("successfully registered with Git ");
+      })
+      .catch((error) => {
+        console.error(error);
+        setError(error.code);
+        setSuccess("");
+      });
+  };
 
   return (
     <div className="hero min-h-screen bg-base-200">
@@ -17,7 +69,7 @@ const SignUp = () => {
           <h1 className="text-5xl font-bold">Register</h1>
         </div>
         <div className="card w-full max-w-sm flex-shrink-0 bg-base-100 shadow-2xl">
-          <form onSubmit={handleRegister} className="card-body">
+          <form id="form" onSubmit={handleRegister} className="card-body">
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Name</span>
@@ -54,6 +106,16 @@ const SignUp = () => {
                 required
               />
               <label className="label">
+                <span className="label-text">Confirm password</span>
+              </label>
+              <input
+                type="password"
+                name="confirm"
+                placeholder="confirm password"
+                className="input-bordered input"
+                required
+              />
+              <label className="label">
                 <a href="#" className="link-hover label-text-alt link">
                   Forgot password?
                 </a>
@@ -64,8 +126,16 @@ const SignUp = () => {
                 Login
               </button>
             </div>
-            <p className="font-semibold text-red-500">{error}</p>
-            <p className="font-semibold text-green-500">{success}</p>
+            <p
+              className={`text-xl ${
+                error === "" ? "text-green-500" : "text-red-500"
+              }`}
+            >
+              {" "}
+              {error === "" ? success : error}
+            </p>
+            {/* <p className="font-semibold text-red-500">{error}</p>
+            <p className="font-semibold text-green-500">{success}</p> */}
             <label className="label">
               <Link to={"/login"} className=" link-hover label-text-alt link">
                 Already have an account please Login
