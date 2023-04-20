@@ -1,14 +1,19 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../provider/AuthProvider";
 
 const SignIn = () => {
+  // location
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location?.state?.from?.pathname || "/";
   // useContext
   const { signInUser, signInPopGit, signInPopGoogle } = useContext(AuthContext);
   // state
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [user, setUser] = useState("");
+  const [show,setShow] = useState(false);
 
   // authentication
   const handleLogin = (e) => {
@@ -22,6 +27,7 @@ const SignIn = () => {
         setError("");
         setSuccess("successfully login");
         document.getElementById("form").reset();
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         console.error(error);
@@ -38,6 +44,7 @@ const SignIn = () => {
         setUser(result.user);
         setError("");
         setSuccess("successfully Login with Google");
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         console.error(error);
@@ -48,10 +55,11 @@ const SignIn = () => {
   const handleGitPopup = () => {
     signInPopGit()
       .then((result) => {
-        console.log(result);
         setUser(result.user);
         setError("");
         setSuccess("successfully Login with Git ");
+        navigate(from, { replace: true });
+        
       })
       .catch((error) => {
         console.error(error);
@@ -66,7 +74,7 @@ const SignIn = () => {
         <div className="text-center ">
           <h1 className="text-5xl font-bold">Log In</h1>
         </div>
-        <div className="card w-full max-w-sm flex-shrink-0 bg-base-100 shadow-2xl">
+        <div className="card w-full max-w-sm flex-shrink-0 bg-base-100 shadow-2xl md:w-screen">
           <form id="form" onSubmit={handleLogin} className="card-body">
             <div className="form-control">
               <label className="label">
@@ -86,11 +94,12 @@ const SignIn = () => {
               </label>
               <input
                 name="password"
-                type="password"
+                type={show?'text':"password"}
                 placeholder="password"
                 className="input-bordered input"
                 required
               />
+              <p onClick={()=>setShow(!show)} className=" mt-2 underline"> {show ? <a> hide password</a> : <a>show password</a>} </p>
               <label className="label">
                 <a href="#" className="link-hover label-text-alt link">
                   Forgot password?
@@ -98,7 +107,7 @@ const SignIn = () => {
               </label>
             </div>
             <div className="form-control mt-6">
-              <button className="btn border-none bg-orange-500 hover:bg-orange-600">
+              <button type="submit" className="btn border-none bg-orange-500 hover:bg-orange-600">
                 Login
               </button>
             </div>

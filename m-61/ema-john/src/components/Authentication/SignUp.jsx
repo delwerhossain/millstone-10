@@ -8,6 +8,7 @@ const SignUp = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [user, setUser] = useState("");
+  const [show, setShow] = useState(false);
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -68,7 +69,7 @@ const SignUp = () => {
         <div className="text-center ">
           <h1 className="text-5xl font-bold">Register</h1>
         </div>
-        <div className="card w-full max-w-sm flex-shrink-0 bg-base-100 shadow-2xl">
+        <div className="card w-full max-w-sm flex-shrink-0 bg-base-100 shadow-2xl md:w-screen">
           <form id="form" onSubmit={handleRegister} className="card-body">
             <div className="form-control">
               <label className="label">
@@ -99,7 +100,7 @@ const SignUp = () => {
                 <span className="label-text">Password</span>
               </label>
               <input
-                type="password"
+                type={show?'text':"password"}
                 name="password"
                 placeholder="password"
                 className="input-bordered input"
@@ -109,12 +110,16 @@ const SignUp = () => {
                 <span className="label-text">Confirm password</span>
               </label>
               <input
-                type="password"
+                type={show?'text':"password"}
                 name="confirm"
                 placeholder="confirm password"
                 className="input-bordered input"
                 required
               />
+              <p onClick={() => setShow(!show)} className=" mt-2 underline">
+                {" "}
+                {show ? <a> hide password</a> : <a>show password</a>}{" "}
+              </p>
               <label className="label">
                 <a href="#" className="link-hover label-text-alt link">
                   Forgot password?

@@ -22,6 +22,7 @@ const AuthProvider = ({ children }) => {
 
   // authentication
   const createUser = (email, password) => {
+    setLoader(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
   //use name for authentication registration
@@ -30,14 +31,18 @@ const AuthProvider = ({ children }) => {
       displayName: name,
     });
   };
+  // sign in part
   const signInUser = (email, password) => {
+    setLoader(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
   // with popup authentication
   const signInPopGoogle = () => {
+    setLoader(true);
     return signInWithPopup(auth, googleProvider);
   };
   const signInPopGit = () => {
+    setLoader(true);
     return signInWithPopup(auth, gitProvider);
   };
   // signOut
