@@ -1,71 +1,61 @@
-import React from 'react';
-import { useContext } from 'react';
-import { Link, NavLink } from "react-router-dom";
-import { NavContext } from '../../Layout/Layouts';
+import React from "react";
+import logo from "../../assets/logo.png";
+import Marquee from "react-fast-marquee";
 
 const Navbar = () => {
-    const {menuList} = useContext(NavContext)
-    return (
-        <div className="navbar bg-base-100">
-            <div className="navbar-start">
-              <div className="dropdown">
-                <label tabIndex={0} className="btn btn-ghost lg:hidden">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M4 6h16M4 12h8m-8 6h16"
-                    />
-                  </svg>
-                </label>
-                <ul
-                  tabIndex={0}
-                  className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
-                >
-                  {menuList.map((menu) => (
-                    <li key={menu.id}>
-                      <NavLink 
-                        className={({ isActive }) =>isActive ? "active mr-5 mb-2" : "mr-5 mb-2"
-                        }
-                        to={menu.link}
-                      >
-                        {menu.title}
-                      </NavLink>
-                    </li>
-                  ))}
-    
-                  {/* <li tabIndex={0}>
-                    <Link to={"order"}>Order</Link>
-                  </li>
-                  <li>
-                    <Link to={"review"}>Review</Link>
-                  </li> */}
-                </ul>
-              </div>
-              <Link className="btn btn-ghost normal-case text-xl">daisyUI</Link>
-            </div>
-            <div className="navbar-center hidden lg:flex">
-              <ul className="menu menu-horizontal px-1">
-                {menuList.map((menu) => (
-                  <li key={menu.id}>
-                    <NavLink  className={({ isActive }) =>isActive ? "active mr-3 btn  border-0" : "mr-3 btn text-black border-0 bg-white  hover:text-white"
-                        } to={menu.link}>{menu.title}</NavLink>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="navbar-end">
-              <Link className="btn">Get started</Link>
-            </div>
+  const weekday = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  let tempDate = new Date();
+  let date =
+    tempDate.getFullYear() +
+    "-" +
+    (tempDate.getMonth() + 1) +
+    "-" +
+    tempDate.getDate() +
+    " " +
+    tempDate.getHours() +
+    ":" +
+    tempDate.getMinutes() +
+    ":" +
+    tempDate.getSeconds();
+  const currDate = weekday[tempDate.getDay()] + ", " + date;
+  return (
+    <>
+      {/* title bar */}
+      <div className="my-8 flex flex-col items-center">
+        <img className=" lg:w-96 w-auto " src={logo} alt="" />
+        <h2 className="mt-4 text-[#706F6F] text-2xl">
+          Journalism Without Fear or Favour
+        </h2>
+        <h3 className="mt-4 text-[#5c5959] text-xl">{currDate}</h3>
+      </div>
+
+      <div className=" h-20 w-full px-20 flex justify-center items-center gap-4 bg-[#F3F3F3]">
+        <div className="">
+          {" "}
+          <button className="bg-[#D72050] px-8 py-4 text-white font-semibold">
+            Latest
+          </button>
+        </div>
+        <Marquee>
+          <div>
+            <p className="text-[#403F3F] font-semibold">
+              Match Highlights: Germany vs Spain — as it happened ! Match
+              Highlights: Germany vs Spain as dragon news  |  Match Highlights: Germany vs Spain — as it happened ! Match
+              Highlights: Germany vs Spain as dragon news
+            </p>
           </div>
-    );
+        </Marquee>
+      </div>
+    </>
+  );
 };
 
 export default Navbar;
