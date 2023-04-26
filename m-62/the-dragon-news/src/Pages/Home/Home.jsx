@@ -1,11 +1,12 @@
 import React from "react";
 import Category from "../../Components/Category/Category";
 import NewsHome from "../../Components/NewsHome/NewsHome";
+import RightSide from "../../Components/RightSide/RightSide";
 
 const Home = () => {
   return (
     <>
-      <div className="grid grid-cols-5">
+      <div className="grid grid-cols-5 w-11/12 mx-auto">
         <div className="bg-blue-100 col-span-1">
           <Category></Category>
         </div>
@@ -13,26 +14,7 @@ const Home = () => {
           <NewsHome></NewsHome>
         </div>
         <div className="bg-yellow-100 col-span-1">
-          <h1>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quo magni
-            cupiditate iste.
-          </h1>
-          <h1>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quo magni
-            cupiditate iste.
-          </h1>
-          <h1>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quo magni
-            cupiditate iste.
-          </h1>
-          <h1>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quo magni
-            cupiditate iste.
-          </h1>
-          <h1>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quo magni
-            cupiditate iste.
-          </h1>
+          <RightSide></RightSide>
         </div>
       </div>
     </>

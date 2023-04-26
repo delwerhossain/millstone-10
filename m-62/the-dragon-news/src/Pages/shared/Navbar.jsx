@@ -1,6 +1,7 @@
 import React from "react";
 import logo from "../../assets/logo.png";
 import Marquee from "react-fast-marquee";
+import moment from "moment/moment";
 
 const Navbar = () => {
   const weekday = [
@@ -34,7 +35,8 @@ const Navbar = () => {
         <h2 className="mt-4 text-[#706F6F] text-2xl">
           Journalism Without Fear or Favour
         </h2>
-        <h3 className="mt-4 text-[#5c5959] text-xl">{currDate}</h3>
+        {/* <h3 className="mt-4 text-[#5c5959] text-xl">{currDate}</h3> */}
+        <h3 className="mt-4 text-[#5c5959] text-xl">{moment().format('dddd, MMMM D, YYYY')}</h3>
       </div>
 
       <div className=" h-20 w-full px-20 flex justify-center items-center gap-4 bg-[#F3F3F3]">
