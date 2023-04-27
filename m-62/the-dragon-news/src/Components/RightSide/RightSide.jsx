@@ -3,10 +3,10 @@ import { IconContext } from "react-icons";
 import { FcGoogle } from "react-icons/fc";
 import { BsGithub, BsInstagram, BsTwitter } from "react-icons/bs";
 import { GrFacebookOption } from "react-icons/gr";
-import qZone1 from '../../assets/qZone1.png'
-import qZone2 from '../../assets/qZone2.png'
-import qZone3 from '../../assets/qZone3.png'
-import rightBanner from '../../assets/bg1.png'
+import qZone1 from "../../assets/qZone1.png";
+import qZone2 from "../../assets/qZone2.png";
+import qZone3 from "../../assets/qZone3.png";
+import rightBanner from "../../assets/bg1.png";
 const RightSide = () => {
   return (
     <div>
@@ -56,15 +56,39 @@ const RightSide = () => {
         </div>
       </div>
       <div className="bg-[#F3F3F3]">
-        <h1 className="text-xl font-semibold w-1/2 mx-auto text-center py-2 ">Q-Zone</h1>
-        <div className="py-4  rounded ">
-          <div className="w-11/12 mx-auto"><img src={qZone1} alt="" />
-          <img src={qZone2} alt="" />
-          <img src={qZone3} alt="" /></div>
+        <h1 className="text-xl font-semibold w-1/2 mx-auto text-center py-4 ">
+          Q-Zone
+        </h1>
+        <div className="  rounded w-10/12 mx-auto">
+          <div className="">
+            <img className="w-full" src={qZone1} alt="" />
+            <img className="w-full" src={qZone2} alt="" />
+            <img className="w-full" src={qZone3} alt="" />
+          </div>
         </div>
       </div>
       {/* image banner  */}
-      <div className={`bg-[url(${rightBanner})]`}>
+      <div className="bg-black w-full mt-6 rounded">
+        <div
+          style={{ backgroundImage: "url(" + rightBanner + ")" }}
+          className={`w-full bg-center h-[509px] bg-no-repeat `}
+        >
+          <div className="pt-10 text-slate-50 text-center w-10/12 mx-auto ">
+            <h1 className="text-5xl font-extrabold   py-4">
+              Create an Amazing Newspaper
+            </h1>
+            <p className=" text-xl font-semibold py-8 ">
+              Discover thousands of options, easy to customize layouts,
+              one-click to import demo and much more.
+            </p>
+            <button
+              className="w-[150px] h-[64px] bg-[#D72050] text-2xl font-semibold "
+            >
+              {" "}
+              Learn More
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
