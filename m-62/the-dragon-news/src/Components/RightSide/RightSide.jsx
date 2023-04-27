@@ -28,7 +28,7 @@ const RightSide = () => {
         <h1 className="text-2xl font-semibold my-4 text-center">Find Us On</h1>
         <div className="overflow-x-auto">
           <table className="table w-full">
-            <tbody className="text-center">
+            <tbody className="text-center border">
               <tr>
                 <th className="flex pl-16 p text-center items-center gap-2 font-semibold text-xl">
                   <GrFacebookOption className="text-[#3B599C] w-8 h-8 p-1  rounded-full bg-slate-300" />{" "}
@@ -43,7 +43,7 @@ const RightSide = () => {
               </tr>
               <tr>
                 <th className="flex pl-16 p text-center items-center gap-2 font-semibold text-xl">
-                  <BsInstagram className="w-8 h-8 p-1  rounded-full bg-slate-300" />{" "}
+                  <BsInstagram className=" w-8 h-8  bg-slate-50" />{" "}
                   <span className="mx-4 text-center">Instagram</span>
                 </th>
               </tr>
