@@ -1,5 +1,4 @@
 import React from "react";
-import { NavContext } from "../../Layout/Layouts";
 import Navbar from "../shared/Navbar";
 import Menu from "../shared/Menu";
 import CompoCategory from "../../Components/CompoCategory/CompoCategory";

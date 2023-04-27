@@ -35,7 +35,6 @@ export const router = createBrowserRouter([
   {
     path: "news",
     element: <NewsLayouts />,
-    errorElement: <ErrorPage />,
     children: [
       {
         path: ":id",

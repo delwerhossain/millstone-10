@@ -1,7 +1,6 @@
 import React from "react";
 import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { NavContext } from "../../Layout/Layouts";
 
 let menuList = [
   { title: "Home", link: "/", id: 1 },
@@ -9,7 +8,6 @@ let menuList = [
   { title: "Contact", link: "/career", id: 3 },
 ];
 const Menu = () => {
-  // const { menuList } = useContext(NavContext);
   return (
     <div className="navbar bg-base-100 w-11/12 mx-auto">
       <div className="navbar-start">
