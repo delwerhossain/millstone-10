@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-const Category = () => {
+const  CompoCategory = () => {
   const [category, setCategory] = useState([])
   useEffect(() => {
     const url = "http://localhost:3000/category";
@@ -30,4 +30,4 @@ const Category = () => {
   );
 };
 
-export default Category;
+export default CompoCategory;
