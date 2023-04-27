@@ -5,6 +5,8 @@ import ErrorPage from "../Components/ErrorPage/ErrorPage";
 import About from "../Pages/About/About";
 import Career from "../Pages/Career/Career";
 import Category from "../Pages/Category/Category";
+import NewsLayouts from "../Pages/NewsLayouts/NewsLayouts";
+import News from "../Components/News/News";
 
 export const router = createBrowserRouter([
   {
@@ -28,6 +30,18 @@ export const router = createBrowserRouter([
         path: "category/:id",
         element: <Category />,
       },
+    ],
+  },
+  {
+    path: "news",
+    element: <NewsLayouts />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: ":id",
+        element: <News />,
+      },
+      
     ],
   },
 ]);

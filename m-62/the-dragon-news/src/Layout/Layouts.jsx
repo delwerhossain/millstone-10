@@ -6,23 +6,11 @@ import Menu from "../Pages/shared/Menu";
 import CompoCategory from "../Components/CompoCategory/CompoCategory";
 import RightSide from "../Components/RightSide/RightSide";
 
-
-let menuList = [
-  { title: "Home", link: "/", id: 1 },
-  { title: "About", link: "/about", id: 2 },
-  { title: "Contact", link: "/career", id: 3 },
-];
-export const NavContext = createContext({
-  menuList: [],
-});
-
 const Layouts = () => {
   return (
     <>
-      <NavContext.Provider value={{ menuList }}>
-        <Navbar></Navbar>
-        <Menu></Menu>
-      </NavContext.Provider>
+      <Navbar></Navbar>
+      <Menu></Menu>
       {/* outlet part  */}
       <div className="grid grid-cols-5 w-11/12 mx-auto">
         <div className=" col-span-1">
