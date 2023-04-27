@@ -1,22 +1,13 @@
 import React from "react";
 import CompoCategory from "../../Components/CompoCategory/CompoCategory";
-import NewsHome from "../../Components/NewsHome/NewsHome";
 import RightSide from "../../Components/RightSide/RightSide";
+import NewsHome from "../../Components/NewsHome/NewsHome";
 
 const Home = () => {
   return (
     <>
-      <div className="grid grid-cols-5 w-11/12 mx-auto">
-        <div className=" col-span-1">
-          <CompoCategory></CompoCategory>
-        </div>
-        <div className=" col-span-3">
           <NewsHome></NewsHome>
-        </div>
-        <div className="col-span-1">
-          <RightSide></RightSide>
-        </div>
-      </div>
+       
     </>
   );
 };
