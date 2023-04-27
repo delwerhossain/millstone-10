@@ -3,6 +3,10 @@ import { IconContext } from "react-icons";
 import { FcGoogle } from "react-icons/fc";
 import { BsGithub, BsInstagram, BsTwitter } from "react-icons/bs";
 import { GrFacebookOption } from "react-icons/gr";
+import qZone1 from '../../assets/qZone1.png'
+import qZone2 from '../../assets/qZone2.png'
+import qZone3 from '../../assets/qZone3.png'
+import rightBanner from '../../assets/bg1.png'
 const RightSide = () => {
   return (
     <div>
@@ -50,6 +54,17 @@ const RightSide = () => {
             </tbody>
           </table>
         </div>
+      </div>
+      <div className="bg-[#F3F3F3]">
+        <h1 className="text-xl font-semibold w-1/2 mx-auto text-center py-2 ">Q-Zone</h1>
+        <div className="py-4  rounded ">
+          <div className="w-11/12 mx-auto"><img src={qZone1} alt="" />
+          <img src={qZone2} alt="" />
+          <img src={qZone3} alt="" /></div>
+        </div>
+      </div>
+      {/* image banner  */}
+      <div className={`bg-[url(${rightBanner})]`}>
       </div>
     </div>
   );

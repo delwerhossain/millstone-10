@@ -13,7 +13,7 @@ const Home = () => {
         <div className="bg-red-100 col-span-3">
           <NewsHome></NewsHome>
         </div>
-        <div className="bg-yellow-100 col-span-1">
+        <div className="col-span-1">
           <RightSide></RightSide>
         </div>
       </div>
