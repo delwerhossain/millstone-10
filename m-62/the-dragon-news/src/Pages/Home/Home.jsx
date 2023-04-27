@@ -1,5 +1,5 @@
 import React from "react";
-import Category from "../../Components/Category/Category";
+import Category from "../../Components/CompoCategory/CompoCategory";
 import NewsHome from "../../Components/NewsHome/NewsHome";
 import RightSide from "../../Components/RightSide/RightSide";
 

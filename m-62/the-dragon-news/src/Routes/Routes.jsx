@@ -4,6 +4,7 @@ import Home from "../Pages/Home/Home";
 import ErrorPage from "../Components/ErrorPage/ErrorPage";
 import About from "../Pages/About/About";
 import Career from "../Pages/Career/Career";
+import Category from "../Pages/Category/Category";
 
 export const router = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ export const router = createBrowserRouter([
       {
         path: "/career",
         element: <Career />,
+      },
+      {
+        path: "category/:id",
+        element: <Category />,
       },
     ],
   },

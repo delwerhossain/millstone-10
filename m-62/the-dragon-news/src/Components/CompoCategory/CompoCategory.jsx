@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const Category = () => {
   const [category, setCategory] = useState([])
@@ -22,7 +23,9 @@ const Category = () => {
   console.log(category);
   return (
     <div>
-      {category.map((cate) => <h1 className="lg:text-xl font-semibold mb-2">{cate.name}</h1>)}
+      {category.map((cate) => <h1 className="lg:text-xl font-semibold mb-2">
+        <Link to={`/category/${cate.id}`}>{cate.name}</Link>
+      </h1>)}
     </div>
   );
 };
