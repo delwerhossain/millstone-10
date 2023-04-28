@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-const NewsHome = ({news}) => {
+const NewsCard = ({ news }) => {
   const { _id, title, details, image_url, author } = news;
   const {name,published_date ,img} =author
   return (
@@ -36,4 +36,4 @@ const NewsHome = ({news}) => {
   );
 };
 
-export default NewsHome;
+export default NewsCard;
