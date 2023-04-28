@@ -12,15 +12,15 @@ const Layouts = () => {
       <Navbar></Navbar>
       <Menu></Menu>
       {/* outlet part  */}
-      <div className="grid grid-cols-5 w-11/12 mx-auto">
+      <div className="grid grid-cols-7 w-11/12 mx-auto">
         <div className=" col-span-1">
           <CompoCategory></CompoCategory>
         </div>
-        <div className=" col-span-3">
+        <div className=" lg:col-span-5 col-span-6">
           <Outlet></Outlet>
           {/* <NewsHome></NewsHome> */}
         </div>
-        <div className="col-span-1">
+        <div className="col-span-1 lg:visible invisible">
           <RightSide></RightSide>
         </div>
       </div>
