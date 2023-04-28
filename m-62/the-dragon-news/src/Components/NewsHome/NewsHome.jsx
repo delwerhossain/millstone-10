@@ -4,6 +4,7 @@ import { IconContext } from "react-icons";
 import { BsBookmark, BsShare } from "react-icons/bs";
 import { AiFillStar, AiOutlineEye, AiOutlineStar } from "react-icons/ai";
 import Rating from "react-rating";
+import { Link } from "react-router-dom";
 
 
 const NewsHome = ({news}) => {
@@ -21,12 +22,17 @@ const NewsHome = ({news}) => {
               <BsShare className="w-6"></BsShare>
             </IconContext.Provider>
           </div>
-          <h3 className="font-bold text-xl py-8 text-start mx-4 ">{title}</h3>
+          {/* use for links  */}
+
+          <div>
+            <Link to={`/news/${_id}`}>
+            <h3 className="font-bold text-xl py-8 text-start mx-4 ">{title}</h3>
           <div className="flex">
             <img src={image_url} className="w-11/12 mx-auto" />
-
-          
           </div>
+            </Link>
+         
+         </div>
           <div className="p-6">
             <h5 className="font-bold text-lg mb-3">Travel to Italy</h5>
             <p className="text-gray-500 mb-4">
