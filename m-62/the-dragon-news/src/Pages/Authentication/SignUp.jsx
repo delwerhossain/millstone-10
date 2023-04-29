@@ -75,7 +75,6 @@ const SignUp = () => {
   return (
     <>
       <Menu></Menu>
-
       <div className="hero min-h-screen bg-base-200">
         <div className="hero-content flex-col ">
           <div className="text-center ">

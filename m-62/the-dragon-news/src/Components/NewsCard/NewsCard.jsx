@@ -25,8 +25,7 @@ const NewsCard = ({ news }) => {
 
           <div>
             <div className="py-8 text-start mx-4">
-            <Link to={`/news/${_id}`}>
-              <h1 className="text-2xl font-semibold text-center my-3 py-1 hover:uppercase hover:underline bg-cyan-50 rounded-xl"> Details</h1>
+            <Link className="text-2xl font-semibold text-center my-3 py-1 hover:uppercase hover:underline bg-cyan-50 rounded-xl" to={`/news/${_id}`}> Details
             </Link>
             <h3 className="font-bold text-xl  ">{title}</h3>
             </div>
