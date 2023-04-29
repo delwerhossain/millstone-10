@@ -1,8 +1,8 @@
 import React from "react";
 import CompoCategory from "../../Components/CompoCategory/CompoCategory";
 import RightSide from "../../Components/RightSide/RightSide";
-import NewsCard from "../../Components/NewsHome/NewsHome";
 import { useLoaderData } from "react-router-dom";
+import NewsCard from "../../Components/NewsCard/NewsCard";
 
 const Home = () => {
   const allNewsData = useLoaderData()

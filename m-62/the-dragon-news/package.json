@@ -12,7 +12,7 @@
     "@heroicons/react": "^2.0.17",
     "@react-icons/all-files": "^4.1.0",
     "daisyui": "^2.51.5",
-    "firebase": "^9.20.0",
+    "firebase": "^9.21.0",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.1",
     "moment": "^2.29.4",

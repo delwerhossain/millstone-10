@@ -25,7 +25,10 @@ const News = () => {
           {/* use for links  */}
 
           <div>
-            <h3 className="font-bold text-xl py-8 text-start mx-4 ">{title}</h3>
+            <div className="py-8 text-start mx-4">
+           
+            <h3 className="font-bold text-xl  ">{title}</h3>
+            </div>
           <div className="flex">
             <img src={image_url} className="w-11/12 mx-auto" />
           </div>

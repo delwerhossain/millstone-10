@@ -65,9 +65,13 @@ const Menu = () => {
           ))}
         </ul>
       </div>
-          <div className="navbar-end">
-              <img className="rounded-full w-12 h-auto mx-4" src="https://i.pinimg.com/736x/a8/57/00/a85700f3c614f6313750b9d8196c08f5.jpg" alt="" />
-        <Link className="btn rounded-none px-6">Log in</Link>
+      <div className="navbar-end">
+        <img
+          className="rounded-full w-12 h-auto mx-4"
+          src="https://i.pinimg.com/736x/a8/57/00/a85700f3c614f6313750b9d8196c08f5.jpg"
+          alt=""
+        />
+        <Link to={'/login'} className="btn rounded-none px-6">Log in</Link>
       </div>
     </div>
   );

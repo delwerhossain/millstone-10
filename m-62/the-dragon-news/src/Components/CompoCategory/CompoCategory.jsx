@@ -23,7 +23,7 @@ const  CompoCategory = () => {
   console.log(category);
   return (
     <div>
-      {category.map((cate) => <h1 className="lg:text-xl font-semibold mb-2">
+      {category.map((cate) => <h1 key={cate.id} className="lg:text-xl font-semibold mb-2">
         <Link to={`/category/${cate.id}`}>{cate.name}</Link>
       </h1>)}
     </div>

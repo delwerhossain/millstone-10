@@ -7,6 +7,9 @@ import Career from "../Pages/Career/Career";
 import Category from "../Pages/Category/Category";
 import NewsLayouts from "../Pages/NewsLayouts/NewsLayouts";
 import News from "../Components/News/News";
+import PrivateRoute from "./PrivateRoute";
+import SignIn from "../Pages/Authentication/SignIn";
+import SignUp from "../Pages/Authentication/SignUp";
 
 export const router = createBrowserRouter([
   {
@@ -17,7 +20,7 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
-        loader : ()=>fetch(`http://localhost:3000/category/0}`)
+        loader: () => fetch(`http://localhost:3000/category/0}`),
       },
       {
         path: "/about",
@@ -25,13 +28,19 @@ export const router = createBrowserRouter([
       },
       {
         path: "/career",
-        element: <Career />,
+        element: (
+          <PrivateRoute>
+            <Career />
+          </PrivateRoute>
+        ),
       },
       {
         path: "category/:id",
         element: <Category />,
-        loader : ({params})=>fetch(`http://localhost:3000/category/${params.id}`)
+        loader: ({ params }) =>
+          fetch(`http://localhost:3000/category/${params.id}`),
       },
+    
     ],
   },
   {
@@ -41,9 +50,17 @@ export const router = createBrowserRouter([
       {
         path: ":id",
         element: <News />,
-        loader : ({params})=>fetch(`http://localhost:3000/news/${params.id}`)
+        loader: ({ params }) =>
+          fetch(`http://localhost:3000/news/${params.id}`),
       },
-      
     ],
+  },
+  {
+    path: "/login",
+    element: <SignIn />,
+  },
+  {
+    path: "/register",
+    element: <SignUp />,
   },
 ]);
