@@ -3,6 +3,12 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../provider/AuthProvider";
 
 const SignUp = () => {
+  
+  // location
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location?.state?.from?.pathname || "/";
+  //context 
   const { createUser, signInPopGit, signInPopGoogle } = useContext(AuthContext);
   // state
   const [error, setError] = useState("");
@@ -27,6 +33,7 @@ const SignUp = () => {
         setError("");
         setSuccess("successfully registered");
         document.getElementById("form").reset();
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         console.error(error);
@@ -41,6 +48,7 @@ const SignUp = () => {
         setUser(result.user);
         setError("");
         setSuccess("successfully registered with Google");
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         console.error(error);
@@ -55,6 +63,7 @@ const SignUp = () => {
         setUser(result.user);
         setError("");
         setSuccess("successfully registered with Git ");
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         console.error(error);

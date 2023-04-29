@@ -1,6 +1,6 @@
-import React from "react";
-import { useContext } from "react";
+import React, { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { AuthContext } from "../../provider/AuthProvider";
 
 let menuList = [
   { title: "Home", link: "/", id: 1 },
@@ -8,6 +8,21 @@ let menuList = [
   { title: "Contact", link: "/career", id: 3 },
 ];
 const Menu = () => {
+  //context
+  const { user ,signOutUser } = useContext(AuthContext);
+  console.log(user);
+  const handleSignOut = () => {
+    signOutUser()
+      .then(() => {
+        setError("");
+        setSuccess("successfully signed out");
+      })
+      .catch((error) => {
+        console.error(error);
+        setError(error.code);
+        setSuccess("");
+      });
+  };
   return (
     <div className="navbar bg-base-100 w-11/12 mx-auto">
       <div className="navbar-start">
@@ -68,10 +83,22 @@ const Menu = () => {
       <div className="navbar-end">
         <img
           className="rounded-full w-12 h-auto mx-4"
-          src="https://i.pinimg.com/736x/a8/57/00/a85700f3c614f6313750b9d8196c08f5.jpg"
+          src={
+            user
+              ? user?.photoURL
+              : `https://i.pinimg.com/736x/a8/57/00/a85700f3c614f6313750b9d8196c08f5.jpg `
+          }
           alt=""
         />
-        <Link to={'/login'} className="btn rounded-none px-6">Log in</Link>
+        {!user ? (
+          <Link to={"/login"} className="btn rounded-none px-6">
+            Log in
+          </Link>
+        ) : (
+          <Link onClick={handleSignOut} className="btn rounded-none px-6">
+            Log Out
+          </Link>
+        )}
       </div>
     </div>
   );
