@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../provider/AuthProvider.jsx";
+import Menu from "../shared/Menu.jsx";
 
 const SignIn = () => {
   // location
@@ -69,6 +70,9 @@ const SignIn = () => {
   };
 
   return (
+    <>
+    <Menu></Menu>
+
     <div className="hero min-h-screen bg-base-200">
       <div className="hero-content flex-col ">
         <div className="text-center ">
@@ -166,7 +170,8 @@ const SignIn = () => {
           </form>
         </div>
       </div>
-    </div>
+      </div>
+      </>
   );
 };
 
