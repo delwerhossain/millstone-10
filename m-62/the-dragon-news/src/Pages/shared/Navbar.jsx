@@ -31,7 +31,7 @@ const Navbar = () => {
     <>
       {/* title bar */}
       <div className="my-8 flex flex-col items-center">
-        <img className=" lg:w-3/12 mx-auto
+        <img loading="lazy"  className=" lg:w-3/12 mx-auto
          w-auto " src={logo} alt="" />
         <h2 className="mt-4 text-[#706F6F] text-2xl">
           Journalism Without Fear or Favour

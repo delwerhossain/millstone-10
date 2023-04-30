@@ -61,9 +61,9 @@ const RightSide = () => {
         </h1>
         <div className="  rounded w-10/12 mx-auto">
           <div className="">
-            <img className="w-full" src={qZone1} alt="" />
-            <img className="w-full" src={qZone2} alt="" />
-            <img className="w-full" src={qZone3} alt="" />
+            <img loading="lazy"  className="w-full" src={qZone1} alt="" />
+            <img loading="lazy"  className="w-full" src={qZone2} alt="" />
+            <img loading="lazy"  className="w-full" src={qZone3} alt="" />
           </div>
         </div>
       </div>

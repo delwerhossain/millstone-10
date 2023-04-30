@@ -30,7 +30,7 @@ const News = () => {
             <h3 className="font-bold text-xl  ">{title}</h3>
             </div>
           <div className="flex">
-            <img src={image_url} className="w-11/12 mx-auto" />
+            <img loading="lazy"  src={image_url} className="w-11/12 mx-auto" />
           </div>
          
          </div>
@@ -46,7 +46,7 @@ const News = () => {
                 >
                   {" "}
                   <a href>by</a>{" "}
-                  <img className="w-8 rounded-full" src={img} alt="" />{" "}
+                  <img loading="lazy"  className="w-8 rounded-full" src={img} alt="" />{" "}
                   <p>{name}</p>
                 </a>
               </small>

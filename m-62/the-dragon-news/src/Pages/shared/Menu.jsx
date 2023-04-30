@@ -81,7 +81,7 @@ const Menu = () => {
         </ul>
       </div>
       <div className="navbar-end">
-        <img
+        <img loading="lazy" 
           className="rounded-full w-12 h-auto mx-4"
           src={
             user
