@@ -9,7 +9,7 @@ import {
   signInWithPopup,
   onAuthStateChanged,
 } from "firebase/auth";
-import { app } from "../Firebase/Firebase.init";
+import { app } from "../Firebase/Firebase.config";
 
 export const AuthContext = createContext(true);
 const auth = getAuth(app);
