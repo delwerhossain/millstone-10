@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const  CompoCategory = () => {
   const [category, setCategory] = useState([])
   useEffect(() => {
-    const url = "http://localhost:3000/category";
+    const url = "https://server-dragon-news-delwerhossain.vercel.app/category";
 
     // Create async function 
     const fetchCategory = async () => {

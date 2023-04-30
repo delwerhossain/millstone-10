@@ -20,7 +20,7 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
-        loader: () => fetch(`http://localhost:3000/category/0}`),
+        loader: () => fetch(`https://server-dragon-news-delwerhossain.vercel.app/category/0}`),
       },
       {
         path: "/about",
@@ -38,7 +38,7 @@ export const router = createBrowserRouter([
         path: "category/:id",
         element: <Category />,
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/category/${params.id}`),
+          fetch(`https://server-dragon-news-delwerhossain.vercel.app/category/${params.id}`),
       },
     
     ],
@@ -51,7 +51,7 @@ export const router = createBrowserRouter([
         path: ":id",
         element: <News />,
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/news/${params.id}`),
+          fetch(`https://server-dragon-news-delwerhossain.vercel.app/news/${params.id}`),
       },
     ],
   },
