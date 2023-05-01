@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.8",
     "daisyui": "^2.51.6",
     "firebase": "^9.21.0",
     "localforage": "^1.10.0",
@@ -17,9 +18,11 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.8.0",
+    "react-responsive-carousel": "^3.2.23",
     "react-router-dom": "^6.11.0",
     "recharts": "^2.5.0",
-    "sort-by": "^1.2.0"
+    "sort-by": "^1.2.0",
+    "twin.macro": "^3.3.1"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",
